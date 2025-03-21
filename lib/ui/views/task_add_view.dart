@@ -59,13 +59,15 @@ class _TaskAddScreenState extends State<TaskAddScreen> {
   @override
   void initState() {
     super.initState();
-    if (widget.task != null) {
-      context.read<TaskListViewModel>().setIsCompleted(
-        widget.task!.status == 1 ? true : false,
-      );
-    }else{
-      context.read<TaskListViewModel>().setIsCompleted(false);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.task != null) {
+        context.read<TaskListViewModel>().setIsCompleted(
+          widget.task!.status == 1 ? true : false,
+        );
+      } else {
+        context.read<TaskListViewModel>().setIsCompleted(false);
+      }
+    });
   }
 
   @override
